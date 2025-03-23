@@ -64,7 +64,10 @@ export async function sendPlayer() {
   console.log("Scheduled for tick: " + targetTick);
 }
 
-await sendPlayer();
+// Export a function to execute sendPlayer
+export async function executeCreatePlayer() {
+  await sendPlayer();
+}
 
 export async function broadcastTransaction(transaction) {
   const encodedTransaction = transaction.encodeTransactionToBase64(

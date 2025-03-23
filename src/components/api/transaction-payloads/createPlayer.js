@@ -35,9 +35,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.sendPlayer = sendPlayer;
-exports.broadcastTransaction = broadcastTransaction;
+
 var transactionCreatePlayer_1 = require("./transactionCreatePlayer");
 var QubicTransaction_1 = require("@qubic-lib/qubic-ts-library/dist/qubic-types/QubicTransaction");
 var base64Utils_1 = require("../utils/base64Utils");
@@ -45,6 +43,7 @@ var rpcStatus_1 = require("../utils/rpcStatus");
 var rpcStatus_2 = require("../utils/rpcStatus");
 var QubicDefinitions_1 = require("@qubic-lib/qubic-ts-library/dist/QubicDefinitions");
 var Long_1 = require("@qubic-lib/qubic-ts-library/dist/qubic-types/Long");
+
 function sendPlayer() {
     return __awaiter(this, void 0, void 0, function () {
         var rawPlayer, player, sendPlayerPayload, sourceId, sourceSeed, rpcStatus, currentTick, targetTick, totalAmount, tx, response, responseData;
@@ -80,10 +79,8 @@ function sendPlayer() {
                         .setInputType(QubicDefinitions_1.QubicDefinitions.QUTIL_SENDMANY_INPUT_TYPE)
                         .setInputSize(sendPlayerPayload.getPackageSize())
                         .setPayload(sendPlayerPayload);
-                    // Signing the transaction
                     return [4 /*yield*/, tx.build(sourceSeed)];
                 case 2:
-                    // Signing the transaction
                     _a.sent();
                     return [4 /*yield*/, broadcastTransaction(tx)];
                 case 3:
@@ -103,7 +100,20 @@ function sendPlayer() {
         });
     });
 }
-await sendPlayer();
+
+function executeCreatePlayer() {
+    return __awaiter(this, void 0, void 0, function () {
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, sendPlayer()];
+                case 1:
+                    _a.sent();
+                    return [2 /*return*/];
+            }
+        });
+    });
+}
+
 function broadcastTransaction(transaction) {
     return __awaiter(this, void 0, void 0, function () {
         var encodedTransaction;
@@ -126,3 +136,8 @@ function broadcastTransaction(transaction) {
         });
     });
 }
+
+// Export the functions to match the TypeScript version
+exports.sendPlayer = sendPlayer;
+exports.executeCreatePlayer = executeCreatePlayer;
+exports.broadcastTransaction = broadcastTransaction;

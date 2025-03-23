@@ -36,16 +36,18 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.baseURL = void 0;
-exports.getRPCStatus = getRPCStatus;
+exports.getRPCStatus = exports.baseURL = void 0;
+
+// Define base URL for RPC calls
 exports.baseURL = "http://194.164.234.59";
-// Querying the RPC status
+
+// Function to get RPC status
 function getRPCStatus() {
     return __awaiter(this, void 0, void 0, function () {
         var res, data;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, fetch("".concat(exports.baseURL, "/v1/tick-info"))];
+                case 0: return [4 /*yield*/, fetch(exports.baseURL + "/v1/tick-info")];
                 case 1:
                     res = _a.sent();
                     return [4 /*yield*/, res.json()];
@@ -57,4 +59,9 @@ function getRPCStatus() {
         });
     });
 }
-await getRPCStatus();
+exports.getRPCStatus = getRPCStatus;
+
+// Execute the function
+getRPCStatus().catch(function(error) {
+    console.error("Error fetching RPC status:", error);
+});

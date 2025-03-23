@@ -6,6 +6,8 @@ import { useQubicConnect } from "../../contexts/QubicConnectContext";
 import { useHM25 } from "../../contexts/HM25Context";
 import InputNumbers from "../../components/qubic/ui/InputNumbers";
 import ConfirmTxModal from "../../components/qubic/connect/ConfirmTxModal";
+// Fix the import to use executeCreatePlayer instead of sendPlayer
+import { executeCreatePlayer as sendPlayer } from "../../components/api/transaction-payloads/createPlayer";
 
 import "./PlayerPage.css";
 
@@ -99,6 +101,142 @@ const InvestModal = ({ isOpen, onClose, player, onInvest }) => {
   );
 };
 
+// SignPlayer Modal Component
+const SignPlayerModal = ({ isOpen, onClose }) => {
+  const { connected, toggleConnectModal } = useQubicConnect();
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  
+  // Form values (using hardcoded values from sendPlayer)
+  const [formValues, setFormValues] = useState({
+    playerId: "XXXXXXX",
+    teamId: "YYYYY",
+    targetAmount: 100,
+    sharePrice: 2
+  });
+
+  if (!isOpen) return null;
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormValues({
+      ...formValues,
+      [name]: value
+    });
+  };
+  
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    
+    try {
+      await sendPlayer();
+      onClose();
+      // Show a success message
+      alert("Player signed successfully!");
+    } catch (error) {
+      console.error("Error signing player:", error);
+      alert("Error signing player. Please try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  return (
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+      <div className="bg-gray-800 p-6 rounded-lg w-full max-w-md">
+        <div className="flex justify-between items-center mb-4">
+          <h2 className="text-xl text-white font-bold">Sign Player</h2>
+          <button onClick={onClose} className="text-white">
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+          </button>
+        </div>
+        
+        {!connected ? (
+          <div className="text-center text-white mb-4">
+            Please connect your wallet to sign a player.
+            <button
+              onClick={toggleConnectModal}
+              className="bg-primary-40 text-black px-4 py-2 rounded ml-2 mt-2 block w-full"
+            >
+              Unlock Wallet
+            </button>
+          </div>
+        ) : (
+          <form onSubmit={handleSubmit} className="space-y-4">
+            <div className="space-y-4">
+              <div>
+                <label htmlFor="playerId" className="block text-white text-sm font-medium mb-1">Player ID</label>
+                <input
+                  type="text"
+                  id="playerId"
+                  name="playerId"
+                  value={formValues.playerId}
+                  onChange={handleInputChange}
+                  className="bg-gray-700 text-white p-2 rounded w-full"
+                  disabled={true}
+                />
+                <p className="text-gray-400 text-xs mt-1">Using hardcoded Player ID from configuration</p>
+              </div>
+              
+              <div>
+                <label htmlFor="teamId" className="block text-white text-sm font-medium mb-1">Team ID</label>
+                <input
+                  type="text"
+                  id="teamId"
+                  name="teamId"
+                  value={formValues.teamId}
+                  onChange={handleInputChange}
+                  className="bg-gray-700 text-white p-2 rounded w-full"
+                  disabled={true}
+                />
+                <p className="text-gray-400 text-xs mt-1">Using hardcoded Team ID from configuration</p>
+              </div>
+              
+              <div>
+                <label htmlFor="targetAmount" className="block text-white text-sm font-medium mb-1">Target Amount</label>
+                <input
+                  type="number"
+                  id="targetAmount"
+                  name="targetAmount"
+                  value={formValues.targetAmount}
+                  onChange={handleInputChange}
+                  className="bg-gray-700 text-white p-2 rounded w-full"
+                  disabled={true}
+                />
+                <p className="text-gray-400 text-xs mt-1">Using hardcoded amount from configuration</p>
+              </div>
+              
+              <div>
+                <label htmlFor="sharePrice" className="block text-white text-sm font-medium mb-1">Share Price</label>
+                <input
+                  type="number"
+                  id="sharePrice"
+                  name="sharePrice"
+                  value={formValues.sharePrice}
+                  onChange={handleInputChange}
+                  className="bg-gray-700 text-white p-2 rounded w-full"
+                  disabled={true}
+                />
+                <p className="text-gray-400 text-xs mt-1">Using hardcoded share price from configuration</p>
+              </div>
+              
+              <button
+                type="submit"
+                className="bg-primary-40 text-black w-full p-3 rounded disabled:bg-gray-400 disabled:cursor-not-allowed"
+                disabled={isSubmitting}
+              >
+                {isSubmitting ? "Signing Player..." : "Sign Player"}
+              </button>
+            </div>
+          </form>
+        )}
+      </div>
+    </div>
+  );
+};
+
 const PlayerPage = () => {
   const navigate = useNavigate();
   // State to track which dropdown is open
@@ -106,6 +244,8 @@ const PlayerPage = () => {
   // State for investment modal
   const [isInvestModalOpen, setIsInvestModalOpen] = useState(false);
   const [selectedPlayer, setSelectedPlayer] = useState(null);
+  // State for sign player modal
+  const [isSignPlayerModalOpen, setIsSignPlayerModalOpen] = useState(false);
   
   // Queries
   const query = useQuery({
@@ -183,6 +323,12 @@ const PlayerPage = () => {
         onInvest={handleInvestmentComplete}
       />
       
+      {/* Sign Player Modal */}
+      <SignPlayerModal
+        isOpen={isSignPlayerModalOpen}
+        onClose={() => setIsSignPlayerModalOpen(false)}
+      />
+      
       <section className="teams-container dark:bg-white-900 p-3 sm:p-5">
         <div className="mx-auto w-full px-4 lg:px-12">
           {/* <!-- Start coding here --> */}
@@ -219,12 +365,18 @@ const PlayerPage = () => {
                   </div>
                 </form>
               </div>
-              <div className="md:w-1/4 flex items-center justify-end">
+              <div className="md:w-1/4 flex items-center justify-end space-x-3">
                 <button 
-                  className="bg-blue-600 -full text-white px-4 py-2 rounded hover:bg-blue-700"
+                  className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
                   onClick={() => navigate('/player-funding')}
                 >
                   Fundings Monitor
+                </button>
+                <button 
+                  className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700"
+                  onClick={() => setIsSignPlayerModalOpen(true)}
+                >
+                  Sign Player
                 </button>
               </div>
             </div>
