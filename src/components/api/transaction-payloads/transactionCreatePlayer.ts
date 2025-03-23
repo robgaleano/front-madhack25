@@ -2,18 +2,18 @@
  * Transaction Payload to use create new player SC
  *
  *  struct CreatePlayer_input {
- *    char name[32];
- *    char team[32];
+ *    id playerId;
+ *    id teamId;
  *    uint64 targetAmount;
  *    uint64 sharePrice;
  *  };
  */
-import { QubicPackageBuilder } from '@qubic-lib/qubic-ts-library/dist/QubicPackageBuilder'
+import { QubicPackageBuilder } from "@qubic-lib/qubic-ts-library/dist/QubicPackageBuilder";
 import { DynamicPayload } from "@qubic-lib/qubic-ts-library/dist/qubic-types/DynamicPayload";
-import { IQubicBuildPackage } from '@qubic-lib/qubic-ts-library/dist/qubic-types/IQubicBuildPackage';
+import { IQubicBuildPackage } from "@qubic-lib/qubic-ts-library/dist/qubic-types/IQubicBuildPackage";
+import { Long } from "@qubic-lib/qubic-ts-library/dist/qubic-types/Long";
 
-
-export class transactionCreatePlayer implements IQubicBuildPackage {
+export class TransactionCreatePlayer implements IQubicBuildPackage {
   private _internalPackageSize = 1088; /* 32 * 32 + 8 * 8 */
 
   private createActionPlayerInput: PlayerInput;
@@ -29,10 +29,10 @@ export class transactionCreatePlayer implements IQubicBuildPackage {
   getPackageData(): Uint8Array {
     const builder = new QubicPackageBuilder(this.getPackageSize());
 
-    builder.add(this.createActionPlayerInput.name);
-    builder.add(this.createActionPlayerInput.team);
-    builder.addInt(this.createActionPlayerInput.targetAmount);
-    builder.addInt(this.createActionPlayerInput.sharePrice);
+    builder.addInt(this.createActionPlayerInput.playerId);
+    builder.addInt(this.createActionPlayerInput.teamId);
+    builder.add(this.createActionPlayerInput.targetAmount);
+    builder.add(this.createActionPlayerInput.sharePrice);
 
     return builder.getData();
   }
@@ -42,11 +42,18 @@ export class transactionCreatePlayer implements IQubicBuildPackage {
     payload.setPayload(this.getPackageData());
     return payload;
   }
+
+  getTotalAmount(): bigint {
+    return BigInt(
+      this.createActionPlayerInput.targetAmount.getNumber() *
+        this.createActionPlayerInput.sharePrice.getNumber()
+    );
+  }
 }
 
 export interface PlayerInput {
-  name: string;
-  team: string;
-  targetAmount: number;
-  sharePrice: number;
+  playerId: number;
+  teamId: number;
+  targetAmount: Long;
+  sharePrice: Long;
 }
