@@ -72,7 +72,7 @@ const PlayerPage = () => {
           {/* <!-- Start coding here --> */}
           <div className="bg-white dark:bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden">
             <div className="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0 md:space-x-4 p-4">
-              <div className="w-full">
+              <div className="w-full md:w-3/4">
                 <form className="flex items-center">
                   <label htmlFor="simple-search" className="sr-only">
                     Search
@@ -102,6 +102,14 @@ const PlayerPage = () => {
                     />
                   </div>
                 </form>
+              </div>
+              <div className="md:w-1/4 flex items-center justify-end">
+                <button 
+                  className="bg-blue-600 -full text-white px-4 py-2 rounded hover:bg-blue-700"
+                  onClick={() => navigate('/player-funding')}
+                >
+                  Fundings Monitor
+                </button>
               </div>
             </div>
             <div className="overflow-x-auto">

@@ -1,0 +1,314 @@
+[
+  {
+    "_id": "67dfcba636eaf378f12bd940",
+    "playerId": "p123456789",
+    "playerName": "Kylian Mbappé",
+    "tokenSymbol": "MBAP",
+    "contractValue": 180000000,
+    "fundingGoal": 180000000,
+    "fundingRaised": 120000000,
+    "fundingProgress": 66.7,
+    "totalTokens": 1800000,
+    "soldTokens": 1200000,
+    "remainingTokens": 600000,
+    "tokenPrice": 100,
+    "fundingDeadline": "2025-06-30T23:59:59.000Z",
+    "timeRemaining": {
+      "days": 99,
+      "hours": 5,
+      "minutes": 39,
+      "seconds": 59
+    },
+    "status": "active",
+    "recentInvestors": [
+      {
+        "userId": "u123456789",
+        "amount": 50000,
+        "tokens": 500,
+        "timestamp": "2025-03-22T18:20:00.000Z"
+      },
+      {
+        "userId": "u234567890",
+        "amount": 30000,
+        "tokens": 300,
+        "timestamp": "2025-03-22T17:45:00.000Z"
+      },
+      {
+        "userId": "u345678901",
+        "amount": 100000,
+        "tokens": 1000,
+        "timestamp": "2025-03-22T16:30:00.000Z"
+      }
+    ],
+    "fundingTrend": [
+      {
+        "date": "2025-03-15T00:00:00.000Z",
+        "amount": 60000000
+      },
+      {
+        "date": "2025-03-16T00:00:00.000Z",
+        "amount": 72000000
+      },
+      {
+        "date": "2025-03-17T00:00:00.000Z",
+        "amount": 85000000
+      },
+      {
+        "date": "2025-03-18T00:00:00.000Z",
+        "amount": 95000000
+      },
+      {
+        "date": "2025-03-19T00:00:00.000Z",
+        "amount": 105000000
+      },
+      {
+        "date": "2025-03-20T00:00:00.000Z",
+        "amount": 112000000
+      },
+      {
+        "date": "2025-03-21T00:00:00.000Z",
+        "amount": 118000000
+      },
+      {
+        "date": "2025-03-22T00:00:00.000Z",
+        "amount": 120000000
+      }
+    ],
+    "createdAt": "2025-03-23T08:51:50.276Z",
+    "updatedAt": "2025-03-23T08:51:50.276Z"
+  },
+  {
+    "_id": "67dfcba636eaf378f12bd941",
+    "playerId": "p987654321",
+    "playerName": "Erling Haaland",
+    "tokenSymbol": "HAAL",
+    "contractValue": 150000000,
+    "fundingGoal": 150000000,
+    "fundingRaised": 90000000,
+    "fundingProgress": 60,
+    "totalTokens": 1875000,
+    "soldTokens": 1125000,
+    "remainingTokens": 750000,
+    "tokenPrice": 80,
+    "fundingDeadline": "2025-07-15T23:59:59.000Z",
+    "timeRemaining": {
+      "days": 114,
+      "hours": 5,
+      "minutes": 39,
+      "seconds": 59
+    },
+    "status": "active",
+    "recentInvestors": [
+      {
+        "userId": "u456789012",
+        "amount": 32000,
+        "tokens": 400,
+        "timestamp": "2025-03-22T18:45:00.000Z"
+      },
+      {
+        "userId": "u567890123",
+        "amount": 24000,
+        "tokens": 300,
+        "timestamp": "2025-03-21T14:20:00.000Z"
+      },
+      {
+        "userId": "u678901234",
+        "amount": 40000,
+        "tokens": 500,
+        "timestamp": "2025-03-20T09:15:00.000Z"
+      }
+    ],
+    "fundingTrend": [
+      {
+        "date": "2025-03-15T00:00:00.000Z",
+        "amount": 50000000
+      },
+      {
+        "date": "2025-03-16T00:00:00.000Z",
+        "amount": 58000000
+      },
+      {
+        "date": "2025-03-17T00:00:00.000Z",
+        "amount": 65000000
+      },
+      {
+        "date": "2025-03-18T00:00:00.000Z",
+        "amount": 72000000
+      },
+      {
+        "date": "2025-03-19T00:00:00.000Z",
+        "amount": 78000000
+      },
+      {
+        "date": "2025-03-20T00:00:00.000Z",
+        "amount": 82000000
+      },
+      {
+        "date": "2025-03-21T00:00:00.000Z",
+        "amount": 86000000
+      },
+      {
+        "date": "2025-03-22T00:00:00.000Z",
+        "amount": 90000000
+      }
+    ],
+    "createdAt": "2025-03-23T08:51:50.276Z",
+    "updatedAt": "2025-03-23T08:51:50.276Z"
+  },
+  {
+    "_id": "67dfcba636eaf378f12bd942",
+    "playerId": "p112233445",
+    "playerName": "Vinícius Júnior",
+    "tokenSymbol": "VINI",
+    "contractValue": 130000000,
+    "fundingGoal": 130000000,
+    "fundingRaised": 75000000,
+    "fundingProgress": 57.7,
+    "totalTokens": 1733333,
+    "soldTokens": 1000000,
+    "remainingTokens": 733333,
+    "tokenPrice": 75,
+    "fundingDeadline": "2025-08-01T23:59:59.000Z",
+    "timeRemaining": {
+      "days": 131,
+      "hours": 5,
+      "minutes": 39,
+      "seconds": 59
+    },
+    "status": "active",
+    "recentInvestors": [
+      {
+        "userId": "u789012345",
+        "amount": 45000,
+        "tokens": 600,
+        "timestamp": "2025-03-22T19:00:00.000Z"
+      },
+      {
+        "userId": "u890123456",
+        "amount": 37500,
+        "tokens": 500,
+        "timestamp": "2025-03-21T16:30:00.000Z"
+      },
+      {
+        "userId": "u901234567",
+        "amount": 22500,
+        "tokens": 300,
+        "timestamp": "2025-03-20T12:45:00.000Z"
+      }
+    ],
+    "fundingTrend": [
+      {
+        "date": "2025-03-15T00:00:00.000Z",
+        "amount": 40000000
+      },
+      {
+        "date": "2025-03-16T00:00:00.000Z",
+        "amount": 46000000
+      },
+      {
+        "date": "2025-03-17T00:00:00.000Z",
+        "amount": 52000000
+      },
+      {
+        "date": "2025-03-18T00:00:00.000Z",
+        "amount": 58000000
+      },
+      {
+        "date": "2025-03-19T00:00:00.000Z",
+        "amount": 64000000
+      },
+      {
+        "date": "2025-03-20T00:00:00.000Z",
+        "amount": 68000000
+      },
+      {
+        "date": "2025-03-21T00:00:00.000Z",
+        "amount": 72000000
+      },
+      {
+        "date": "2025-03-22T00:00:00.000Z",
+        "amount": 75000000
+      }
+    ],
+    "createdAt": "2025-03-23T08:51:50.276Z",
+    "updatedAt": "2025-03-23T08:51:50.276Z"
+  },
+  {
+    "_id": "67dfcba636eaf378f12bd943",
+    "playerId": "p556677889",
+    "playerName": "Jude Bellingham",
+    "tokenSymbol": "BELL",
+    "contractValue": 160000000,
+    "fundingGoal": 160000000,
+    "fundingRaised": 81000000,
+    "fundingProgress": 50.6,
+    "totalTokens": 1777778,
+    "soldTokens": 900000,
+    "remainingTokens": 877778,
+    "tokenPrice": 90,
+    "fundingDeadline": "2025-09-10T23:59:59.000Z",
+    "timeRemaining": {
+      "days": 171,
+      "hours": 5,
+      "minutes": 39,
+      "seconds": 59
+    },
+    "status": "active",
+    "recentInvestors": [
+      {
+        "userId": "u012345678",
+        "amount": 45000,
+        "tokens": 500,
+        "timestamp": "2025-03-22T20:15:00.000Z"
+      },
+      {
+        "userId": "u123450987",
+        "amount": 27000,
+        "tokens": 300,
+        "timestamp": "2025-03-21T18:45:00.000Z"
+      },
+      {
+        "userId": "u234509876",
+        "amount": 36000,
+        "tokens": 400,
+        "timestamp": "2025-03-20T15:20:00.000Z"
+      }
+    ],
+    "fundingTrend": [
+      {
+        "date": "2025-03-15T00:00:00.000Z",
+        "amount": 45000000
+      },
+      {
+        "date": "2025-03-16T00:00:00.000Z",
+        "amount": 51000000
+      },
+      {
+        "date": "2025-03-17T00:00:00.000Z",
+        "amount": 57000000
+      },
+      {
+        "date": "2025-03-18T00:00:00.000Z",
+        "amount": 63000000
+      },
+      {
+        "date": "2025-03-19T00:00:00.000Z",
+        "amount": 69000000
+      },
+      {
+        "date": "2025-03-20T00:00:00.000Z",
+        "amount": 74000000
+      },
+      {
+        "date": "2025-03-21T00:00:00.000Z",
+        "amount": 78000000
+      },
+      {
+        "date": "2025-03-22T00:00:00.000Z",
+        "amount": 81000000
+      }
+    ],
+    "createdAt": "2025-03-23T08:51:50.276Z",
+    "updatedAt": "2025-03-23T08:51:50.276Z"
+  }
+]
