@@ -39,10 +39,10 @@ function App() {
                     <BrowserRouter>
                         <Layout>
                             <Routes>
-                                <Route path="/" element={<StartPage/>}/>
+                                {/* <Route path="/" element={<StartPage/>}/> */}
+                                <Route path="/" element={<PlayerPage/>}/>
                                 <Route path="/echo" element={<EchoPage/>}/>
                                 <Route path="/burn" element={<BurnPage/>}/>
-                                <Route path="/player" element={<PlayerPage/>}/>
                                 <Route path="/player/:id" element={<PlayerDetail/>}/>
                                 <Route path="/player-funding" element={<PlayerFunding/>}/>
                             </Routes>

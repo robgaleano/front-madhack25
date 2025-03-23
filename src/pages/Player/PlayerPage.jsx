@@ -1,14 +1,112 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import demoPlayers from "../../components/api/demo/players.json";
+import { useQubicConnect } from "../../contexts/QubicConnectContext";
+import { useHM25 } from "../../contexts/HM25Context";
+import InputNumbers from "../../components/qubic/ui/InputNumbers";
+import ConfirmTxModal from "../../components/qubic/connect/ConfirmTxModal";
 
 import "./PlayerPage.css";
+
+// Investment Modal Component
+const InvestModal = ({ isOpen, onClose, player, onInvest }) => {
+  const { connected, toggleConnectModal } = useQubicConnect();
+  const { echo, balance } = useHM25();
+  const amountRef = useRef();
+  const [amount, setAmount] = useState('');
+  const [showConfirmModal, setShowConfirmModal] = useState(false);
+
+  if (!isOpen) return null;
+
+  const handleValidate = () => amountRef.current.validate();
+  
+  const handleSubmit = async () => {
+    if (!handleValidate()) return;
+    setShowConfirmModal(true);
+  };
+  
+  const confirmInvestment = async () => {
+    await echo(amount);
+    // Here you would also add player investment logic
+  };
+  
+  const handleTransactionComplete = () => {
+    setShowConfirmModal(false);
+    onClose();
+    onInvest();
+  };
+
+  return (
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+      <div className="bg-gray-800 p-6 rounded-lg w-full max-w-md">
+        <div className="flex justify-between items-center mb-4">
+          <h2 className="text-xl text-white font-bold">Invest in {player?.name}</h2>
+          <button onClick={onClose} className="text-white">
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+          </button>
+        </div>
+        
+        {!connected ? (
+          <div className="text-center text-white mb-4">
+            Please connect your wallet to invest.
+            <button
+              onClick={toggleConnectModal}
+              className="bg-primary-40 text-black px-4 py-2 rounded ml-2 mt-2 block w-full"
+            >
+              Unlock Wallet
+            </button>
+          </div>
+        ) : (
+          <div className="space-y-4">
+            <div className="bg-gray-700 p-3 rounded mb-4">
+              <p className="text-white text-sm">Token Price: ${player?.tokenPrice}</p>
+              <p className="text-white text-sm">Funding Progress: {player?.fundingProgress}%</p>
+              <p className="text-white text-sm">Balance: {balance || 0} QUBIC</p>
+            </div>
+            
+            <InputNumbers
+              id="investAmount"
+              ref={amountRef}
+              labelComponent={<span className="text-white">Amount to Invest (QUBIC)</span>}
+              minLimit={1}
+              onChange={setAmount}
+              placeholder="0"
+            />
+            
+            <button
+              className="bg-primary-40 text-black w-full p-3 rounded disabled:bg-gray-400 disabled:cursor-not-allowed"
+              onClick={handleSubmit}
+              disabled={balance <= 0 || Number(amount) > Number(balance)}
+              title={balance <= 0 ? 'Insufficient balance.' : Number(amount) > Number(balance) ? 'Amount exceeds balance.' : ''}
+            >
+              Invest
+            </button>
+          </div>
+        )}
+        
+        <ConfirmTxModal
+          open={showConfirmModal}
+          onClose={() => setShowConfirmModal(false)}
+          tx={{ title: `Invest in ${player?.name}`, amount }}
+          onConfirm={confirmInvestment}
+          onTransactionComplete={handleTransactionComplete}
+        />
+      </div>
+    </div>
+  );
+};
 
 const PlayerPage = () => {
   const navigate = useNavigate();
   // State to track which dropdown is open
   const [openDropdownId, setOpenDropdownId] = useState(null);
+  // State for investment modal
+  const [isInvestModalOpen, setIsInvestModalOpen] = useState(false);
+  const [selectedPlayer, setSelectedPlayer] = useState(null);
+  
   // Queries
   const query = useQuery({
     queryKey: ["players"],
@@ -33,18 +131,28 @@ const PlayerPage = () => {
     setOpenDropdownId(null);
   };
 
-  // Handle navigation to player detail
+  // Handle navigation to player detail or open invest modal
   const handlePlayerAction = (action, playerId) => {
     if (action === "detail") {
       navigate(`/player/${playerId}`);
+    } else if (action === "invest") {
+      const player = players.find(p => p._id === playerId);
+      setSelectedPlayer(player);
+      setIsInvestModalOpen(true);
     }
     setOpenDropdownId(null);
+  };
+
+  // Handle successful investment
+  const handleInvestmentComplete = () => {
+    // Refetch players data or update UI as needed
+    query.refetch();
   };
 
   // Dropdown menu options
   const dropdownOptions = [
     { id: "detail", label: "Detail", type: "regular" },
-    // { id: "edit", label: "Edit", type: "regular" },
+    { id: "invest", label: "Invest", type: "regular" }
     // { id: "delete", label: "Delete", type: "danger" },
   ];
   
@@ -67,6 +175,14 @@ const PlayerPage = () => {
       className="w-full mx-auto mt-[90px] text-white"
       onClick={handleClickOutside}
     >
+      {/* Investment Modal */}
+      <InvestModal 
+        isOpen={isInvestModalOpen}
+        onClose={() => setIsInvestModalOpen(false)}
+        player={selectedPlayer}
+        onInvest={handleInvestmentComplete}
+      />
+      
       <section className="teams-container dark:bg-white-900 p-3 sm:p-5">
         <div className="mx-auto w-full px-4 lg:px-12">
           {/* <!-- Start coding here --> */}
