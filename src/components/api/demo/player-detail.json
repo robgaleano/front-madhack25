@@ -1,0 +1,23 @@
+{
+  "_id": "67df14b342eeaa1f63238d63",
+  "playerId": "p112233445",
+  "name": "Vinícius Júnior",
+  "position": "Delantero",
+  "age": 24,
+  "nationality": "Brasil",
+  "currentClub": "Real Madrid CF",
+  "targetClub": {
+    "clubId": "c998877665",
+    "name": "Liverpool FC",
+    "logo": "https://upload.wikimedia.org/wikipedia/en/0/0c/Liverpool_FC.svg",
+    "_id": "67dfc50139170cc2532a0363"
+  },
+  "contractValue": 130000000,
+  "tokenPrice": 75,
+  "totalTokens": 1733333,
+  "soldTokens": 1000000,
+  "fundingProgress": 57.7,
+  "fundingDeadline": "2025-08-01T23:59:59.000Z",
+  "status": "active",
+  "image": "https://assets.laliga.com/squad/2024/t186/p246333/512x512/p246333_t186_2024_1_004_000.png"
+}

@@ -1,0 +1,94 @@
+[
+  {
+    "_id": "67df14b342eeaa1f63238d63",
+    "playerId": "p112233445",
+    "name": "Vinícius Júnior",
+    "position": "Delantero",
+    "age": 24,
+    "nationality": "Brasil",
+    "currentClub": "Real Madrid CF",
+    "targetClub": {
+      "clubId": "c998877665",
+      "name": "Liverpool FC",
+      "logo": "https://upload.wikimedia.org/wikipedia/en/0/0c/Liverpool_FC.svg",
+      "_id": "67dfc81239170cc2532a03bc"
+    },
+    "contractValue": 130000000,
+    "tokenPrice": 75,
+    "totalTokens": 1733333,
+    "soldTokens": 1000000,
+    "fundingProgress": 57.7,
+    "fundingDeadline": "2025-08-01T23:59:59.000Z",
+    "status": "active",
+    "image": "https://assets.laliga.com/squad/2024/t186/p246333/512x512/p246333_t186_2024_1_004_000.png"
+  },
+  {
+    "_id": "67df14b342eeaa1f63238d64",
+    "playerId": "p556677889",
+    "name": "Jude Bellingham",
+    "position": "Centrocampista",
+    "age": 22,
+    "nationality": "Inglaterra",
+    "currentClub": "Real Madrid CF",
+    "targetClub": {
+      "clubId": "c112233445",
+      "name": "Manchester United",
+      "logo": "https://img.uefa.com/imgml/TP/teams/logos/100x100/52682.png",
+      "_id": "67dfc81239170cc2532a03bd"
+    },
+    "contractValue": 160000000,
+    "tokenPrice": 90,
+    "totalTokens": 1777778,
+    "soldTokens": 900000,
+    "fundingProgress": 50.6,
+    "fundingDeadline": "2025-09-10T23:59:59.000Z",
+    "status": "active",
+    "image": "https://assets.laliga.com/squad/2024/t186/p244855/512x512/p244855_t186_2024_1_004_000.png"
+  },
+  {
+    "_id": "67df14e742eeaa1f63238d65",
+    "playerId": "p123456789",
+    "name": "Kylian Mbappé",
+    "position": "Delantero",
+    "age": 26,
+    "nationality": "Francia",
+    "currentClub": "Paris Saint-Germain",
+    "targetClub": {
+      "clubId": "c987654321",
+      "name": "Real Madrid CF",
+      "logo": "https://images.seeklogo.com/logo-png/11/1/real-madrid-club-de-futbol-logo-png_seeklogo-116421.png",
+      "_id": "67dfc81239170cc2532a03be"
+    },
+    "contractValue": 180000000,
+    "tokenPrice": 100,
+    "totalTokens": 1800000,
+    "soldTokens": 1200000,
+    "fundingProgress": 66.7,
+    "fundingDeadline": "2025-06-30T23:59:59.000Z",
+    "status": "active",
+    "image": "https://assets.laliga.com/squad/2024/t186/p220160/512x512/p220160_t186_2024_1_004_000.png"
+  },
+  {
+    "_id": "67df14e742eeaa1f63238d66",
+    "playerId": "p987654321",
+    "name": "Erling Haaland",
+    "position": "Delantero",
+    "age": 24,
+    "nationality": "Noruega",
+    "currentClub": "Manchester City",
+    "targetClub": {
+      "clubId": "c123456789",
+      "name": "FC Barcelona",
+      "logo": "https://upload.wikimedia.org/wikipedia/en/4/47/FC_Barcelona_%28crest%29.svg",
+      "_id": "67dfc81239170cc2532a03bf"
+    },
+    "contractValue": 150000000,
+    "tokenPrice": 80,
+    "totalTokens": 1875000,
+    "soldTokens": 1125000,
+    "fundingProgress": 60,
+    "fundingDeadline": "2025-07-15T23:59:59.000Z",
+    "status": "active",
+    "image": "https://ratings-images-prod.pulse.ea.com/FC25/full/player-shields/en/239085.png?width=265"
+  }
+]

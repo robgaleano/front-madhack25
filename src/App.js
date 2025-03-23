@@ -8,6 +8,7 @@ import StartPage from './pages/StartPage'
 import EchoPage from './pages/EchoPage'
 import BurnPage from './pages/BurnPage'
 import PlayerPage from './pages/Player/PlayerPage'
+import PlayerDetail from './pages/Player/PlayerDetail'
 import {Toaster} from 'react-hot-toast'
 import {ConfigProvider} from "./contexts/ConfigContext"
 
@@ -22,7 +23,7 @@ export function Layout({children}) {
     return (
         <div className="flex flex-col min-h-screen">
             <Header/>
-            <main className="flex-1 flex flex-col">{children}</main>
+            <main className="flex-1 flex flex-col bg-neutral-100">{children}</main>
             <Footer className="mt-auto"/>
         </div>
     )
@@ -41,6 +42,7 @@ function App() {
                                 <Route path="/echo" element={<EchoPage/>}/>
                                 <Route path="/burn" element={<BurnPage/>}/>
                                 <Route path="/player" element={<PlayerPage/>}/>
+                                <Route path="/player/:id" element={<PlayerDetail/>}/>
                             </Routes>
                             <Toaster
                                 position="top-right"

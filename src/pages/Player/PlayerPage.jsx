@@ -1,18 +1,23 @@
 import React, { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
+import { useNavigate } from "react-router-dom";
+import demoPlayers from "../../components/api/demo/players.json";
 
 import "./PlayerPage.css";
 
 const PlayerPage = () => {
+  const navigate = useNavigate();
   // State to track which dropdown is open
   const [openDropdownId, setOpenDropdownId] = useState(null);
   // Queries
   const query = useQuery({
     queryKey: ["players"],
-    queryFn: () => fetch("http://10.19.200.185:3000/player").then((res) => res.json()),
+    queryFn: () =>
+      fetch("http://194.164.234.59:3000/player").then((res) => res.json()),
   });
 
-  console.log(query.data);
+  // Use the data from the query, or fall back to the demo players if data isn't loaded yet
+  const players = query.data ?? demoPlayers;
 
   // Toggle dropdown visibility
   const toggleDropdown = (productId) => {
@@ -28,104 +33,42 @@ const PlayerPage = () => {
     setOpenDropdownId(null);
   };
 
-  // Products data array
-  const products = [
-    {
-      id: "apple-imac-27",
-      name: 'Apple iMac 27"',
-      category: "PC",
-      brand: "Apple",
-      description: "300",
-      price: "$2999",
-    },
-    {
-      id: "apple-imac-20",
-      name: 'Apple iMac 20"',
-      category: "PC",
-      brand: "Apple",
-      description: "200",
-      price: "$1499",
-    },
-    {
-      id: "apple-iphone-14",
-      name: "Apple iPhone 14",
-      category: "Phone",
-      brand: "Apple",
-      description: "1237",
-      price: "$999",
-    },
-    {
-      id: "apple-ipad-air",
-      name: "Apple iPad Air",
-      category: "Tablet",
-      brand: "Apple",
-      description: "4578",
-      price: "$1199",
-    },
-    {
-      id: "xbox-series-s",
-      name: "Xbox Series S",
-      category: "Gaming/Console",
-      brand: "Microsoft",
-      description: "56",
-      price: "$299",
-    },
-    {
-      id: "playstation-5",
-      name: "PlayStation 5",
-      category: "Gaming/Console",
-      brand: "Sony",
-      description: "78",
-      price: "$799",
-    },
-    {
-      id: "xbox-series-x",
-      name: "Xbox Series X",
-      category: "Gaming/Console",
-      brand: "Microsoft",
-      description: "200",
-      price: "$699",
-    },
-    {
-      id: "apple-watch-se",
-      name: "Apple Watch SE",
-      category: "Watch",
-      brand: "Apple",
-      description: "657",
-      price: "$399",
-    },
-    {
-      id: "nikon-d850",
-      name: "NIKON D850",
-      category: "Photo",
-      brand: "Nikon",
-      description: "465",
-      price: "$599",
-    },
-    {
-      id: "benq-ex2710q",
-      name: "Monitor BenQ EX2710Q",
-      category: "TV/Monitor",
-      brand: "BenQ",
-      description: "354",
-      price: "$499",
-    },
-  ];
+  // Handle navigation to player detail
+  const handlePlayerAction = (action, playerId) => {
+    if (action === "detail") {
+      navigate(`/player/${playerId}`);
+    }
+    setOpenDropdownId(null);
+  };
 
   // Dropdown menu options
   const dropdownOptions = [
-    { id: "show", label: "Show", type: "regular" },
-    { id: "edit", label: "Edit", type: "regular" },
-    { id: "delete", label: "Delete", type: "danger" },
+    { id: "detail", label: "Detail", type: "regular" },
+    // { id: "edit", label: "Edit", type: "regular" },
+    // { id: "delete", label: "Delete", type: "danger" },
+  ];
+  
+  // Table headers array
+  const tableHeaders = [
+    { id: 'image', label: 'Player' },
+    { id: 'name', label: 'Name' },
+    { id: 'position', label: 'Position' },
+    { id: 'currentClub', label: 'Current Club' },
+    { id: 'targetClub', label: 'Target Club' },
+    { id: 'clubLogo', label: 'Club Logo' },
+    { id: 'contractValue', label: 'Contract Value' },
+    { id: 'tokenPrice', label: 'Token Price' },
+    { id: 'fundingProgress', label: 'Funding Progress' },
+    { id: 'actions', label: <span className="sr-only">Actions</span> }
   ];
 
   return (
     <div
-      className="max-w-md mx-auto mt-[90px] text-white"
+      className="w-full mx-auto mt-[90px] text-white"
       onClick={handleClickOutside}
     >
       <section className="teams-container dark:bg-white-900 p-3 sm:p-5">
-        <div className="mx-auto max-w-screen-xl px-4 lg:px-12">
+        <div className="mx-auto w-full px-4 lg:px-12">
           {/* <!-- Start coding here --> */}
           <div className="bg-white dark:bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden">
             <div className="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0 md:space-x-4 p-4">
@@ -165,48 +108,73 @@ const PlayerPage = () => {
               <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                 <thead className="text-xs text-gray-700 uppercase bg-neutral-100 dark:bg-gray-700 dark:text-gray-400">
                   <tr>
-                    <th scope="col" className="px-4 py-3">
-                      Product name
-                    </th>
-                    <th scope="col" className="px-4 py-3">
-                      Category
-                    </th>
-                    <th scope="col" className="px-4 py-3">
-                      Brand
-                    </th>
-                    <th scope="col" className="px-4 py-3">
-                      Description
-                    </th>
-                    <th scope="col" className="px-4 py-3">
-                      Price
-                    </th>
-                    <th scope="col" className="px-4 py-3">
-                      <span className="sr-only">Actions</span>
-                    </th>
+                    {tableHeaders.map((header) => (
+                      <th key={header.id} scope="col" className="px-4 py-3">
+                        {header.label}
+                      </th>
+                    ))}
                   </tr>
                 </thead>
                 <tbody>
-                  {products.map((product) => (
+                  {players.map((player) => (
                     <tr
-                      key={product.id}
+                      key={player._id}
                       className="border-b dark:border-gray-700"
                     >
+                      <td className="px-4 py-3">
+                        {player.image ? (
+                          <img
+                            src={player.image}
+                            alt={`${player.name}`}
+                            className="h-16 w-16 object-contain rounded-full"
+                          />
+                        ) : (
+                          "No image"
+                        )}
+                      </td>
                       <th
                         scope="row"
                         className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white"
                       >
-                        {product.name}
+                        {player.name}
                       </th>
-                      <td className="px-4 py-3">{product.category}</td>
-                      <td className="px-4 py-3">{product.brand}</td>
-                      <td className="px-4 py-3">{product.description}</td>
-                      <td className="px-4 py-3">{product.price}</td>
+                      <td className="px-4 py-3">{player.position}</td>
+                      <td className="px-4 py-3">{player.currentClub}</td>
+                      <td className="px-4 py-3">
+                        {player.targetClub?.name || "N/A"}
+                      </td>
+                      <td className="px-4 py-3">
+                        {player.targetClub?.logo ? (
+                          <img
+                            src={player.targetClub.logo}
+                            alt={`${player.targetClub.name} logo`}
+                            className="h-10 w-10 object-contain"
+                          />
+                        ) : (
+                          "N/A"
+                        )}
+                      </td>
+                      <td className="px-4 py-3">
+                        ${player.contractValue.toLocaleString()}
+                      </td>
+                      <td className="px-4 py-3">${player.tokenPrice}</td>
+                      <td className="px-4 py-3">
+                        <div className="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
+                          <div
+                            className="bg-blue-600 h-2.5 rounded-full"
+                            style={{ width: `${player.fundingProgress}%` }}
+                          ></div>
+                        </div>
+                        <span className="text-xs text-gray-700 dark:text-gray-300 mt-1">
+                          {player.fundingProgress}%
+                        </span>
+                      </td>
                       <td className="px-4 py-3 flex items-center justify-end">
                         <button
-                          id={`${product.id}-dropdown-button`}
+                          id={`${player._id}-dropdown-button`}
                           onClick={(e) => {
                             e.stopPropagation(); // Prevent triggering handleClickOutside
-                            toggleDropdown(product.id);
+                            toggleDropdown(player._id);
                           }}
                           className="inline-flex items-center p-0.5 text-sm font-medium text-center text-gray-500 hover:text-gray-800 rounded-lg focus:outline-none dark:text-gray-400 dark:hover:text-gray-100"
                           type="button"
@@ -222,15 +190,15 @@ const PlayerPage = () => {
                           </svg>
                         </button>
                         <div
-                          id={`${product.id}-dropdown`}
+                          id={`${player._id}-dropdown`}
                           className={`${
-                            openDropdownId === product.id ? "block" : "hidden"
-                          } absolute mt-2 right-0 z-10 w-44 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600`}
+                            openDropdownId === player._id ? "block" : "hidden"
+                          } absolute mt-12 mr-12 right-0 z-10 w-56 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-800 dark:divide-gray-600`}
                           onClick={(e) => e.stopPropagation()} // Prevent closing when clicking inside dropdown
                         >
                           <ul
                             className="py-1 text-sm text-gray-700 dark:text-gray-200"
-                            aria-labelledby={`${product.id}-dropdown-button`}
+                            aria-labelledby={`${player._id}-dropdown-button`}
                           >
                             {dropdownOptions
                               .filter((option) => option.type === "regular")
@@ -239,25 +207,16 @@ const PlayerPage = () => {
                                   <a
                                     href="#"
                                     className="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                                    onClick={(e) => {
+                                      e.preventDefault();
+                                      handlePlayerAction(option.id.toLowerCase(), player._id);
+                                    }}
                                   >
                                     {option.label}
                                   </a>
                                 </li>
                               ))}
                           </ul>
-                          <div className="py-1">
-                            {dropdownOptions
-                              .filter((option) => option.type === "danger")
-                              .map((option) => (
-                                <a
-                                  key={option.id}
-                                  href="#"
-                                  className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
-                                >
-                                  {option.label}
-                                </a>
-                              ))}
-                          </div>
                         </div>
                       </td>
                     </tr>
